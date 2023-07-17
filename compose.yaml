@@ -1,5 +1,6 @@
 services:
   backend:
+    container_name: go-backend-APP
     build: .
     ports:
       - 8000:8000
@@ -10,11 +11,13 @@ services:
 
   db:
     image: mysql:8.0.33
+    container_name: go-backend-DB
     restart: always
     environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABSE: shop_site
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+      MYSQL_USER: gof1ber
+      MYSQL_PASSWORD: gof1ber
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - .dbdata:/var/lib/mysql
