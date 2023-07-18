@@ -8,7 +8,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/akira-saneyoshi/go-backend-shopsite/config"
+	"app/config"
+
 	"golang.org/x/sync/errgroup"
 )
 

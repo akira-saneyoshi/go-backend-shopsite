@@ -24,5 +24,6 @@ CMD ["./app"]
 FROM golang:1.20 as dev
 
 WORKDIR /app
+COPY . /usr/local/go/src/app/
+
 RUN go install github.com/cosmtrek/air@latest
-CMD ["air"]
