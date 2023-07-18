@@ -6,6 +6,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
+COPY . /usr/local/go/src/app/
 RUN go build -trimpath -ldflags "-w -s" -o app
 
 # -------------------------
