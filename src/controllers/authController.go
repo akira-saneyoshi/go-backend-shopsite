@@ -21,7 +21,7 @@ func Register(c *fiber.Ctx) error {
 	if data["password"] != data["password_confirm"] {
 		c.Status(fiber.StatusBadRequest) //Status:400
 		return c.JSON(fiber.Map{
-			"message": "passwords do not match",
+			"message": "passwords do not match.",
 		})
 	}
 
@@ -33,7 +33,14 @@ func Register(c *fiber.Ctx) error {
 	}
 	user.SetPassword(data["password"])
 
-	database.DB.Create(&user)
+	result := database.DB.Create(&user)
+
+	if result.Error != nil {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"message": "That email is already registered.",
+		})
+	}
 
 	return c.JSON(user)
 }
