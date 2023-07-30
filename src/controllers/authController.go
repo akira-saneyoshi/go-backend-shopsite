@@ -6,6 +6,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+
 	//"golang.org/x/crypto/bcrypt"
 	"strconv"
 	"time"
@@ -26,9 +27,9 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	user := models.User{
-		FirstName:		data["first_name"],
-		LastName:			data["last_name"],
-		Email:				data["email"],
+		FirstName:    data["first_name"],
+		LastName:     data["last_name"],
+		Email:        data["email"],
 		IsAmbassador: false,
 	}
 	user.SetPassword(data["password"])
@@ -71,7 +72,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	payload := jwt.StandardClaims{
-		Subject: strconv.Itoa(int(user.Id)),
+		Subject:   strconv.Itoa(int(user.Id)),
 		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 	}
 
@@ -85,10 +86,10 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	cookie := fiber.Cookie{
-		Name:			"jwt",
-		Value:		token,
-		Expires:	time.Now().Add(time.Hour * 24),
-		HTTPOnly:	true,
+		Name:     "jwt",
+		Value:    token,
+		Expires:  time.Now().Add(time.Hour * 24),
+		HTTPOnly: true,
 	}
 
 	c.Cookie(&cookie)
@@ -119,4 +120,19 @@ func User(c *fiber.Ctx) error {
 	database.DB.Where("id = ?", payload.Subject).First(&user)
 
 	return c.JSON(user)
+}
+
+func Logout(c *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+
+	c.Cookie(&cookie)
+
+	return c.JSON(fiber.Map{
+		"message": "success",
+	})
 }
