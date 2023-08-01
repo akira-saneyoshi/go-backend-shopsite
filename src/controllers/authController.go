@@ -4,6 +4,7 @@ import (
 	"go-shopsite/src/database"
 	"go-shopsite/src/middlewares"
 	"go-shopsite/src/models"
+	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
@@ -31,7 +32,7 @@ func Register(c *fiber.Ctx) error {
 		FirstName:    data["first_name"],
 		LastName:     data["last_name"],
 		Email:        data["email"],
-		IsAmbassador: false,
+		IsAmbassador: strings.Contains(c.Path(), "/api/ambassador"),
 	}
 	user.SetPassword(data["password"])
 
