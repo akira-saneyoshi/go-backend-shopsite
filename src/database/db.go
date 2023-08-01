@@ -2,6 +2,7 @@ package database
 
 import (
 	"go-shopsite/src/models"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -19,5 +20,5 @@ func Connect() {
 }
 
 func AutoMigrate() {
-	DB.AutoMigrate(models.User{})
+	DB.AutoMigrate(models.User{}, models.Product{})
 }
