@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"app/config"
+	"go-shopsite/config"
 
 	"golang.org/x/sync/errgroup"
 )
