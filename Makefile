@@ -28,13 +28,16 @@ backend-bash:
 	docker compose exec backend bash
 
 backend-faker-users:
-	docker compose exec backend bash go run src/commands/populateUsers.go
+	docker compose exec backend bash "go run src/commands/populateUsers.go"
 
 backend-faker-products:
-	docker compose exec backend bash go run src/commands/populateProducts.go
+	docker compose exec backend bash "go run src/commands/populateProducts.go"
 
 backend-faker-orders:
-	docker compose exec backend bash go run src/commands/populateOrders.go
+	docker compose exec backend bash "go run src/commands/populateOrders.go"
+
+backend-redis-ranking:
+	docker compose exec backend bash -c "go run src/commands/updateRankings.go"
 
 dry-migrate: ## Try migration
 	mysqldef -u gof1ber -p gof1ber -h 127.0.0.1 -P 33306 shop_site --dry-run < ./_tools/mysql/schema.sql
