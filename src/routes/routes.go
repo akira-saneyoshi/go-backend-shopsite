@@ -43,4 +43,8 @@ func Setup(app *fiber.App) {
 	ambassadorAuthenticated.Post("links", controllers.CreateLink)
 	ambassadorAuthenticated.Get("stats", controllers.Stats)
 	ambassadorAuthenticated.Get("rankings", controllers.Rankings)
+
+	checkout := api.Group("checkout")
+
+	checkout.Get("links/:code", controllers.GetLink)
 }
