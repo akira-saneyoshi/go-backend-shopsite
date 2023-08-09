@@ -28,13 +28,13 @@ backend-bash:
 	docker compose exec backend bash
 
 backend-faker-users:
-	docker compose exec backend bash "go run src/commands/populateUsers.go"
+	docker compose exec backend bash -c "go run src/commands/populateUsers.go"
 
 backend-faker-products:
-	docker compose exec backend bash "go run src/commands/populateProducts.go"
+	docker compose exec backend bash -c "go run src/commands/populateProducts.go"
 
 backend-faker-orders:
-	docker compose exec backend bash "go run src/commands/populateOrders.go"
+	docker compose exec backend bash -c "go run src/commands/populateOrders.go"
 
 backend-redis-ranking:
 	docker compose exec backend bash -c "go run src/commands/updateRankings.go"
